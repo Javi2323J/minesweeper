@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 
+import { setTilesHelper } from '../helpers'
+
 import Tile from './Tile'
 
 function Board(props) {
@@ -11,7 +13,8 @@ function Board(props) {
         if (tiles.length === 0)
             switch (diff) {
                 case 'easy':
-                    setTiles(new Array(81).fill(''))
+                    const newTiles = setTilesHelper('easy')
+                    setTiles(newTiles)
                     break
                 case 'medium':
                     setTiles(new Array(810))
@@ -26,8 +29,8 @@ function Board(props) {
         <section>
             <div className="bg-[white] font-bold flex justify-center items-center pt-[8px]">MINESWEEPER</div>
             {diff === 'easy' &&
-                <div className="grid grid-cols-9 border-[white] border-[6px] p-[2px]">
-                    {tiles.map((_, index) => <Tile key={index} />)}
+                <div className="grid grid-cols-9 border-[white] border-[8px]">
+                    {tiles.map((item, index) => <Tile key={index} />)}
                 </div>
             }
         </section>
