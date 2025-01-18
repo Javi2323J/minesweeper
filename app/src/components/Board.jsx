@@ -30,7 +30,7 @@ function Board(props) {
             <div className="bg-[white] font-bold flex justify-center items-center pt-[8px]">MINESWEEPER</div>
             {diff === 'easy' &&
                 <div className="grid grid-cols-9 border-[white] border-[8px]">
-                    {tiles.map((item, index) => <Tile key={index} type={item.type} />)}
+                    {tiles.map((item, index) => <Tile key={index} item={item} />)}
                 </div>
             }
         </section>

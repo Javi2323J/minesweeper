@@ -1,22 +1,22 @@
-import { easyOffsets } from '../utils'
+import { easyOffsets, checkNearbyBombs } from '../utils'
 
 export default (diff) => {
     let arr = []
-    let possiblePosition = false
     let emptyTiles, bombs, startingPoint
 
     switch (diff) {
         case 'easy':
+            // SETTING THE FULL ARRAY
             for (let i = 0; i < 9; i++) {
                 for (let j = 0; j < 9; j++) {
-                    arr.push({ row: i, column: j, type: null })
+                    arr.push({ row: i, column: j, type: null, content: null })
                 }
             }
-            console.log(arr)
 
+            // SETTING THE EMPTY TILES
             emptyTiles = Math.floor(Math.random() * 10 + 10)
 
-            while (!possiblePosition) {
+            while (true) {
                 const randomNumber = Math.floor(Math.random() * arr.length)
                 const maybePosition = arr[randomNumber]
 
@@ -37,7 +37,35 @@ export default (diff) => {
                 willBeEmpty.type = 'e'
             }
 
-            bombs = Math.floor(Math.random() * 10 + 5)
+            // SETTING THE BOMBS
+            bombs = Math.floor(Math.random() * 10 + 10)
+
+            do {
+                const randomNumber = Math.floor(Math.random() * arr.length)
+
+                const selectedPosition = arr[randomNumber]
+
+                if (!selectedPosition.type) {
+                    selectedPosition.type = 'b'
+                    selectedPosition.content = '💣'
+
+                    bombs--
+                }
+            } while (bombs > 0)
+
+            // SETTING THE NUMBERS
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].type !== 'b') {
+                    const nearbyBombs = checkNearbyBombs(arr, arr[i])
+
+                    if (nearbyBombs > 0) {
+                        arr[i].type = 'n'
+                        arr[i].content = nearbyBombs
+                    }
+
+                    else arr[i].type = 'e'
+                }
+            }
 
             return arr
     }

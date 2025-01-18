@@ -1,5 +1,8 @@
-import { easyOffsets } from './offsets'
+import { easyOffsets, tileOffsets } from './offsets'
+import checkNearbyBombs from './checkNearbyBombs'
 
 export {
-    easyOffsets
+    easyOffsets,
+    tileOffsets,
+    checkNearbyBombs
 }

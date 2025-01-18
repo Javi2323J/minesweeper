@@ -1,3 +1,14 @@
+export const tileOffsets = [
+    { colOffset: 1, rowOffset: 0 },
+    { colOffset: 1, rowOffset: 1 },
+    { colOffset: 0, rowOffset: 1 },
+    { colOffset: -1, rowOffset: 1 },
+    { colOffset: -1, rowOffset: 0 },
+    { colOffset: -1, rowOffset: -1 },
+    { colOffset: 0, rowOffset: -1 },
+    { colOffset: 1, rowOffset: -1 }
+]
+
 export const easyOffsets = [
     { colOffset: 1, rowOffset: 0 },
     { colOffset: 1, rowOffset: -1 },
