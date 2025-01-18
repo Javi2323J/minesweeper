@@ -6,7 +6,7 @@ export default (diff) => {
 
     switch (diff) {
         case 'easy':
-            // SETTING THE FULL ARRAY
+            // SETTING THE INITIAL FULL ARRAY
             for (let i = 0; i < 9; i++) {
                 for (let j = 0; j < 9; j++) {
                     arr.push({ row: i, column: j, type: null, content: null, adjacentEmpty: false })
@@ -20,7 +20,7 @@ export default (diff) => {
                 const randomNumber = Math.floor(Math.random() * arr.length)
                 const maybePosition = arr[randomNumber]
 
-                if (maybePosition.column > 2 && maybePosition.column < 6 && maybePosition.row > 2 && maybePosition.row < 6) {
+                if (maybePosition.column > 1 && maybePosition.column < 7 && maybePosition.row > 1 && maybePosition.row < 7) {
                     arr[randomNumber].type = 'e'
                     emptyTiles--
                     startingPoint = arr[randomNumber]
@@ -73,7 +73,7 @@ export default (diff) => {
                     if (adjacentEmpty) arr[i].adjacentEmpty = true
                 }
             }
-            console.log(arr)
+
             return arr
     }
 }
