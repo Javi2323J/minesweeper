@@ -1,4 +1,4 @@
-import { easyOffsets, checkNearbyBombs } from '../utils'
+import { easyOffsets, checkNearbyBombs, checkNearbyEmpty } from '../utils'
 
 export default (diff) => {
     let arr = []
@@ -9,7 +9,7 @@ export default (diff) => {
             // SETTING THE FULL ARRAY
             for (let i = 0; i < 9; i++) {
                 for (let j = 0; j < 9; j++) {
-                    arr.push({ row: i, column: j, type: null, content: null })
+                    arr.push({ row: i, column: j, type: null, content: null, adjacentEmpty: false })
                 }
             }
 
@@ -38,7 +38,7 @@ export default (diff) => {
             }
 
             // SETTING THE BOMBS
-            bombs = Math.floor(Math.random() * 10 + 10)
+            bombs = Math.floor(Math.random() * 10 + 15)
 
             do {
                 const randomNumber = Math.floor(Math.random() * arr.length)
@@ -61,12 +61,19 @@ export default (diff) => {
                     if (nearbyBombs > 0) {
                         arr[i].type = 'n'
                         arr[i].content = nearbyBombs
-                    }
-
-                    else arr[i].type = 'e'
+                    } else arr[i].type = 'e'
                 }
             }
 
+            // SETTING ADJACENT PROPERTY
+            for (let i = 0; i < arr.length; i++) {
+                if (!arr[i].adjacentEmpty) {
+                    const adjacentEmpty = checkNearbyEmpty(arr, arr[i])
+
+                    if (adjacentEmpty) arr[i].adjacentEmpty = true
+                }
+            }
+            console.log(arr)
             return arr
     }
 }

@@ -19,8 +19,8 @@ function App() {
 
           <div className="flex gap-[10px]">
             <button id="easy" onClick={handleDiffSelected} className="w-[110px] border-[#D3D3D3] bg-[#F8F8FF] border-2 rounded-[2px] hover:bg-[#D3D3D3]">Easy</button>
-            <button id="medium" onClick={handleDiffSelected} className="w-[110px] border-[#D3D3D3] bg-[#F8F8FF] border-2 rounded-[2px] hover:bg-[#D3D3D3]">Medium</button>
-            <button id="hard" onClick={handleDiffSelected} className="w-[110px] border-[#D3D3D3] bg-[#F8F8FF] border-2 rounded-[2px] hover:bg-[#D3D3D3]">Hard</button>
+            <button id="medium" onClick={handleDiffSelected} className="w-[110px] border-[#D3D3D3] bg-[#F8F8FF] border-2 rounded-[2px] hover:bg-[#D3D3D3]" disabled>Medium</button>
+            <button id="hard" onClick={handleDiffSelected} className="w-[110px] border-[#D3D3D3] bg-[#F8F8FF] border-2 rounded-[2px] hover:bg-[#D3D3D3]" disabled>Hard</button>
           </div>
         </div> :
         <div>

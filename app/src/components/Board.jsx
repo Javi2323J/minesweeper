@@ -6,8 +6,18 @@ import Tile from './Tile'
 
 function Board(props) {
     const [tiles, setTiles] = useState([])
+    const [bombed, setBombed] = useState(false)
+    const [emptiesRevealed, setEmptiesRevealed] = useState(false)
 
     const { diff } = props
+
+    const handleBombClick = () => {
+        setBombed(true)
+    }
+
+    const handleEmptyClick = () => {
+        setEmptiesRevealed(true)
+    }
 
     useEffect(() => {
         if (tiles.length === 0)
@@ -30,7 +40,7 @@ function Board(props) {
             <div className="bg-[white] font-bold flex justify-center items-center pt-[8px]">MINESWEEPER</div>
             {diff === 'easy' &&
                 <div className="grid grid-cols-9 border-[white] border-[8px]">
-                    {tiles.map((item, index) => <Tile key={index} item={item} />)}
+                    {tiles.map((item, index) => <Tile key={index} item={item} onBombClicked={handleBombClick} bombed={bombed} onEmptyRevealed={handleEmptyClick} emptiesRevealed={emptiesRevealed} />)}
                 </div>
             }
         </section>
