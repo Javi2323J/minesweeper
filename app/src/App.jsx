@@ -1,32 +1,29 @@
 import { useState } from 'react'
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
+import { isValidDiff } from './helpers'
+
+import Minesweeper from './components/Minesweeper'
 import Board from './components/Board'
 
 function App() {
-  const [diff, setDiff] = useState(null)
+  const [validDiff, setValidDiff] = useState(false)
 
-  const handleDiffSelected = (event) => {
-    const { id } = event.target
+  const navigate = useNavigate()
 
-    setDiff(id)
+  const diffSelectedHandler = (diff) => {
+    navigate(`/${diff}`)
+
+    isValidDiff(diff) ? setValidDiff(true) : setValidDiff(false)
   }
 
   return (
     <main className="w-full h-full flex justify-center items-center">
-      {!diff ?
-        <div className="flex gap-[40px] font-bold flex-col items-center justify-center">
-          <p className="text-[#F8F8FF] ">Choose difficulty</p>
+      <Routes>
+        <Route path='/' element={<Minesweeper onDiffSelected={diffSelectedHandler} />} />
 
-          <div className="flex gap-[10px]">
-            <button id="easy" onClick={handleDiffSelected} className="w-[110px] border-[#D3D3D3] bg-[#F8F8FF] border-2 rounded-[2px] hover:bg-[#D3D3D3]">Easy</button>
-            <button id="medium" onClick={handleDiffSelected} className="w-[110px] border-[#D3D3D3] bg-[#F8F8FF] border-2 rounded-[2px] hover:bg-[#D3D3D3]" disabled>Medium</button>
-            <button id="hard" onClick={handleDiffSelected} className="w-[110px] border-[#D3D3D3] bg-[#F8F8FF] border-2 rounded-[2px] hover:bg-[#D3D3D3]" disabled>Hard</button>
-          </div>
-        </div> :
-        <div>
-          <Board diff={diff} />
-        </div>
-      }
+        <Route path='/:diff' element={validDiff ? <Board /> : <Navigate to='/' />} />
+      </Routes>
     </main>
   )
 }

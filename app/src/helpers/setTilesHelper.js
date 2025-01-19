@@ -38,7 +38,7 @@ export default (diff) => {
             }
 
             // SETTING THE BOMBS
-            bombs = Math.floor(Math.random() * 10 + 15)
+            bombs = Math.floor(Math.random() * 5 + 15)
 
             do {
                 const randomNumber = Math.floor(Math.random() * arr.length)

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 
 import { setTilesHelper } from '../helpers'
 
@@ -10,7 +11,7 @@ function Board(props) {
     const [bombs, setBombs] = useState(0)
     const [emptiesRevealed, setEmptiesRevealed] = useState(false)
 
-    const { diff } = props
+    const { diff } = useParams()
 
     const handleBombClick = () => {
         setBombed(true)
