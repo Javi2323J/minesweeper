@@ -1,7 +1,17 @@
 import { useState, useEffect } from 'react'
 
 function Tile(props) {
-    const { item: { type, content, adjacentEmpty }, bombed, onBombClicked, onEmptyRevealed, emptiesRevealed, onMarkedTile } = props
+    const {
+        item: { type, content, adjacentEmpty },
+        bombed,
+        onBombClicked,
+        onEmptyRevealed,
+        emptiesRevealed,
+        onMarkedTile,
+        onRevealedTile,
+        onCorrectlyMarked,
+        win
+    } = props
 
     const [revealed, setRevealed] = useState(false)
     const [marked, setMarked] = useState(false)
@@ -15,18 +25,25 @@ function Tile(props) {
     const handleTileClicked = (event) => {
         event.preventDefault()
 
-        if (!bombed) {
-            if (event.button === 0 && !marked) {
-                setRevealed(true)
-
+        if (!bombed && !win) {
+            if (event.button === 0 && !marked && !revealed) {
                 if (type === 'b') {
                     onBombClicked()
                 } else if (type === 'e') {
                     onEmptyRevealed()
                 }
+                else if (type !== 'b') {
+                    onRevealedTile()
+                }
+                setRevealed(true)
             } else if (event.button === 2 && !revealed) {
                 onMarkedTile(!marked)
+
+                if (type === 'b' && !marked) onCorrectlyMarked('plus')
+                else if (type === 'b' && marked) onCorrectlyMarked('minus')
+
                 marked ? setMarked(false) : setMarked(true)
+
             }
         }
     }
